@@ -1,0 +1,8 @@
+# wav-to-duration --read-entire-file=false scp:dev_sge/wav4split/2/wav.scp ark,t:dev_sge/wav4split/2/reco2dur 
+# Started at Wed Mar 20 15:41:15 SGT 2019
+#
+wav-to-duration --read-entire-file=false scp:dev_sge/wav4split/2/wav.scp ark,t:dev_sge/wav4split/2/reco2dur 
+LOG (wav-to-duration[5.5.201~1-afc5e]:main():wav-to-duration.cc:92) Printed duration for 3 audio files.
+LOG (wav-to-duration[5.5.201~1-afc5e]:main():wav-to-duration.cc:94) Mean duration was 3268.23, min and max durations were 1832.89, 4214.98
+# Accounting: time=0 threads=1
+# Ended (code 0) at Wed Mar 20 15:41:15 SGT 2019, elapsed time 0 seconds

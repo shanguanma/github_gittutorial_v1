@@ -1,0 +1,42 @@
+Compiling
+fstcompile -isymbols=T.isyms -osymbols=T.osyms T.txt T.fst
+Printing
+fstprint -isymbols=T.isyms -osymbols=T.osyms T.fst >Tout.txt
+explaining:
+The meaning represented by each column in this files(e.g.Tout.txt)
+
+first column is source state
+second column is destination state
+third column is input lable on the arc
+fourth column is output lable on the arc
+fifth column is wigths from Input Label to Output Label on the arc
+
+arc is a directed arrow between the source state and the destination state
+
+
+Drawing
+fstdraw -isymbols=T.isyms -osymbols=T.osyms T.fst >T.dot
+
+
+
+print lang: L.fst
+      lang_test: G.fst
+
+current folder:/home4/md510/w2019a/kaldi-recipe/add-noise-to-seame-v1
+
+. path.sh
+
+fstprint data/local/lang/L.fst  ~/w2019a/learn-fst/Ltext.fst
+fstprint data/local/lang_test/G.fst ~/w2019a/learn-fst/Gtext.fst
+
+#using  sorted
+
+fstinfo data/local/lang/L.fst   // get result display:Sort by output label and unsort by input label 
+#in order to compare 
+
+fstarcsort --sort_type=ilabel data/local/lang/L.fst ~/w2019a/learn-fst/Linput_sorted.fst  // get result display:Sort by iutput label and and unsort by output label
+
+# Creates the composed FST.
+fstcompose  data/local/lang/L.fst  ~/w2019a/learn-fst/Linput_sorted.fst ~/w2019a/learn-fst/comp.fst
+# Just keeps the output label 
+fstproject --project_output ~/w2019a/learn-fst/comp.fst ~/w2019a/learn-fst/result.fst
