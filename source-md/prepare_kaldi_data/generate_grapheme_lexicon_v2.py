@@ -123,3 +123,35 @@ if __name__=='__main__':
 # how to run this script?
 # current path: /home4/md510/w2020/kaldi-recipe/egs/malay_cts
 # source-md/prepare_kaldi_data/generate_grapheme_lexicon_v2.py --wordlist_en test/wordlist_10.txt  --dict_dir test/dict_sub
+
+"""
+ [md510@node08 malay_cts_new]$ head kaldi_data/16k/dict_16k/extra_questions.txt 
+ [md510@node08 malay_cts_new]$ head kaldi_data/16k/dict_16k/lexicon.txt 
+<noise> <sss>
+<unk> <oov>
+a a_WB
+aa a_WB a_WB
+aaa a_WB a a_WB
+aab a_WB a b_WB
+aadk a_WB a d k_WB
+aalco a_WB a l c o_WB
+aam a_WB a m_WB
+aamir a_WB a m i r_WB
+[md510@node08 malay_cts_new]$ head kaldi_data/16k/dict_16k/nonsilence_phones.txt 
+'
+-
+0_WB
+a
+a_WB
+b
+b_WB
+c
+c_WB
+d
+[md510@node08 malay_cts_new]$ head kaldi_data/16k/dict_16k/optional_silence.txt 
+SIL
+[md510@node08 malay_cts_new]$ head kaldi_data/16k/dict_16k/silence_phones.txt 
+SIL
+<sss>
+<oov>
+"""
