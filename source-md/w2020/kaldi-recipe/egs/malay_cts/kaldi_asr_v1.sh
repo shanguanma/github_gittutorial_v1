@@ -396,7 +396,7 @@ if [ ${stage} -le 16 ] && [ ${stop_stage} -ge 16 ]; then
              utils/fix_data_dir.sh $tgtdir/data$suffix/${datadir}_sp
            done
          elif [ "${wave_sample}" = 16k ];then
-           log "Stage 16: using speed perturb for 16k train data augmentation, it is 13 dim mfcc "
+           log "Stage 16: using speed perturb for 16k codec train data augmentation, it is 13 dim mfcc "
            for datadir in ${train_set}; do
              /home4/md510/package/source-md/asr_frontend/data_level/codec/perturb_data_dir_speed_3way.sh \
                   $tgtdir/data$suffix/${datadir} $tgtdir/data$suffix/${datadir}_sp
