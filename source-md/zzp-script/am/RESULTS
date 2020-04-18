@@ -1,0 +1,16 @@
+# Copyright 2018-2020 (Authors: zeng zhiping zengzp0912@gmail.com) 2020-03-18 updated
+Results test on seame (english words and chinese characters):
+              		dev_man	dev_sge	
+baseline		20.16	26.44	
++ sp	        	19.91	26	
++ noise	        	20.47	27.22	
++ sp + noise    	20.17	26.35	(trim wav.scp)
++ sp + codecs		20.68	26.90	(trim wav.scp 8k --just simple g722 good codecs)
++ sp + noise + codecs	21.22	27.90	(trim wav.scp 8k --just simple g722 good codecs)
+
+How trim wav.scp work:
+Before trim:
+sp0.9-ui16maz_0101 sox /home4/zpz505/data/raw-data/code-switch/seame/data/seame/phasei/original/interview/ui16maz_0101/ui16maz_0101.wav -r 16000 -c 1 -b 16 -t wav - | sox -t wav - -t wav - speed 0.9 |
+After trim:
+sp0.9-ui16maz_0101-00000-00731 sox /home4/zpz505/data/raw-data/code-switch/seame/data/seame/phasei/original/interview/ui16maz_0101/ui16maz_0101.wav -r 16000 -c 1 -b 16 -t wav -r 16000 - speed 0.9 trim 0.00 8.12 |
+

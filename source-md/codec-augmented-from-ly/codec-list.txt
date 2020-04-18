@@ -1,0 +1,10 @@
+-acodec g722 -ab 4.75k 
+-acodec g722 -ab 5.15k
+-acodec g722 -ab 5.90k
+-acodec g722 -ab 6.6k
+-acodec g722 -ab 6.70k 
+-acodec g722 -ab 7.40k
+-acodec g722 -ab 7.95k 
+-acodec g722 -ab 10.20k
+-acodec g722 -ab 12.20k
+-acodec pcm_alaw

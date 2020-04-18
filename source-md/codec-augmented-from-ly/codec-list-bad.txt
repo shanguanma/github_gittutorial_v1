@@ -1,0 +1,6 @@
+-ab 4.75k -f amr
+-b:a 4.5k  -c:a libopus -f ogg
+-b:a 5.5k  -c:a libopus -f ogg
+-b:a 7.7k  -c:a libopus -f ogg
+-b:a 16k    -acodec g726 -f wav
+-b:a 24k    -acodec g726 -f wav
