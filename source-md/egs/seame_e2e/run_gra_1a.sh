@@ -4,7 +4,7 @@
 
 # using speed perturbed method
 
-#input feature:80-dim fbank(add pitch)
+#input feature:80-dim fbank + 3 dim pitch
 # model unit is sentencepiece(e.g.:bpe).
 #            english unit:41 lowercase English letters word pieces
 #            mandarin unit:3918 single Chinese characters.  
