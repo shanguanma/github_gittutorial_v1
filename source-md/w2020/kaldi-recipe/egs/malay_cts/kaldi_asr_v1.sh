@@ -283,50 +283,61 @@ if [ ${stage} -le 8 ] && [ ${stop_stage} -ge 8 ]; then
 fi
 
 # select shortest utt to do mono, it is useful.
-
-if [ "${hmm_gmm_version}" = "v1" ];then
- log "From here: using hmm-gmm version is v1........ "
- if [ ${stage} -le 9 ] && [ ${stop_stage} -ge 9 ];then
+if [ ${stage} -le 9 ] && [ ${stop_stage} -ge 9 ];then
   log " Step 9 :select ${shortest_utt_num} shortest utterances to train mono gmm"
   utils/subset_data_dir.sh  \
       --shortest  $tgtdir/data$suffix/${train_set} ${shortest_utt_num} \
-        $tgtdir/data$suffix/${train_set}_${shortest_utt_num}short 
- fi     
+        $tgtdir/data$suffix/${train_set}_${shortest_utt_num}short
+fi
 
 
- if [ ${stage} -le 10 ] && [ ${stop_stage} -ge 10 ];then
+if [ ${stage} -le 10 ] && [ ${stop_stage} -ge 10 ];then
   log " Stage 10: train mono...."
   steps/train_mono.sh  --boost-silence 1.25 --nj  10  --cmd "$cmd" \
     $tgtdir/data$suffix/${train_set}_${shortest_utt_num}short  $lang $exp_root/mono
 
- fi
+fi
 
- if [ ${stage} -le 11 ] && [ ${stop_stage} -ge 11 ]; then
+if [ ${stage} -le 11 ] && [ ${stop_stage} -ge 11 ]; then
   log "Stage 11: ali mono and train deltas ...."
   steps/align_si.sh --boost-silence 1.25  --nj 10 --cmd "$cmd" \
-    $tgtdir/data$suffix/${train_set}_${shortest_utt_num}short $lang $exp_root/mono $exp_root/mono_ali 
+    $tgtdir/data$suffix/${train_set}_${shortest_utt_num}short $lang $exp_root/mono $exp_root/mono_ali
 
   steps/train_deltas.sh --cmd "$cmd" --boost-silence 1.25 \
-    2000 10000  $tgtdir/data$suffix/${train_set}  $lang $exp_root/mono_ali $exp_root/tri1 
+    2000 10000  $tgtdir/data$suffix/${train_set}  $lang $exp_root/mono_ali $exp_root/tri1
 
- fi
- if [ ${stage} -le 12 ] && [ ${stop_stage} -ge 12 ]; then
-  log "Stage 12: tri1 ali and lda_mllt training ....."
-  steps/align_si.sh --nj $nj --cmd "$train_cmd" \
+fi
+
+if [ ${stage} -le 12 ] && [ ${stop_stage} -ge 12 ]; then
+   if [ "${hmm_gmm_version}" = "v1" ];then
+     log "From here: using hmm-gmm version is v1........ at tri2 stage, it use lda_mllt without splice frames  "
+     log "Stage 12: tri1 ali and lda_mllt training ....."
+     steps/align_si.sh --nj $nj --cmd "$train_cmd" \
                     $tgtdir/data$suffix/${train_set}  $lang $exp_root/tri1 $exp_root/tri1_ali
 
-  steps/train_lda_mllt.sh --cmd "$cmd" \
-    2500 15000 $tgtdir/data$suffix/${train_set} $lang $exp_root/tri1_ali $exp_root/tri2 
-
+     steps/train_lda_mllt.sh --cmd "$cmd" \
+      2500 15000 $tgtdir/data$suffix/${train_set} $lang $exp_root/tri1_ali $exp_root/tri2
+   elif [ "${hmm_gmm_version}" = "v2" ];then
+     log "From here: using hmm-gmm version is v1........ at tri2 stage, it use delta+delta-delta feature to train a tri2 system"
+     log "Stage 12: tri1 ali and delta+delta-delta  training ....."
+     steps/align_si.sh --nj $nj --cmd "$train_cmd" \
+                    $tgtdir/data$suffix/${train_set}  $lang $exp_root/tri1 $exp_root/tri1_ali
+     steps/train_deltas.sh --cmd "$cmd" \
+      2500 15000 $tgtdir/data$suffix/${train_set} $lang $exp_root/tri1_ali $exp_root/tri2
+   else
+     log "Error: not supported: --hmm_gmm_version ${hmm_gmm_version}"
+     exit 2;
+   fi
  fi
- if [ ${stage} -le 13 ] && [ ${stop_stage} -ge 13 ]; then
+
+if [ ${stage} -le 13 ] && [ ${stop_stage} -ge 13 ]; then
   log "Stage 13: tri2 ali and lda_mllt training ....."
   steps/align_si.sh --nj $nj --cmd "$cmd" \
     $tgtdir/data$suffix/${train_set} $lang $exp_root/tri2 $exp_root/tri2_ali
 
   steps/train_lda_mllt.sh --cmd "$cmd" \
      --splice-opts "--left-context=3 --right-context=3" \
-     2500 15000 $tgtdir/data$suffix/${train_set} $lang $exp_root/tri2_ali $exp_root/tri3 
+     2500 15000 $tgtdir/data$suffix/${train_set} $lang $exp_root/tri2_ali $exp_root/tri3
 
  fi
 
@@ -340,7 +351,7 @@ if [ "${hmm_gmm_version}" = "v1" ];then
 
  fi
 
- if "${use_pp}"; then 
+ if "${use_pp}"; then
    if [ ${stage} -le 15 ] && [ ${stop_stage} -ge 15 ]; then
      log "Stage 15:  Now we compute the pronunciation and silence probabilities from training data"
      steps/get_prons.sh --cmd "$cmd" \
@@ -360,10 +371,7 @@ if [ "${hmm_gmm_version}" = "v1" ];then
        $dictdir/lexiconp.txt $tgtdir/data$suffix/lang_test_pp
 
    fi
-
  fi
- log " Using hmm_gmm_version=v1 to get from mono to tri4. Now it has finish, you can see them at $exp_root/"
-fi
 
 
 

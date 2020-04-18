@@ -1,3 +1,2 @@
-# github_gittutorial_v1
+# My script is stored and updated.
 
-# test 
