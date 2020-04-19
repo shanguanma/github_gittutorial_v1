@@ -1,7 +1,9 @@
 # How to install KALDI：
 
 ` step1:`
+
 `### download kaldi master from github`
+
 `$ git clone https://github.com/kaldi-asr/kaldi.git`
 
 # step2:
