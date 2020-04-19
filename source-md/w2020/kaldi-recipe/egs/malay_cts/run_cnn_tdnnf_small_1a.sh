@@ -72,7 +72,7 @@ for f in $gmm_dir/final.mdl $train_data_dir/feats.scp $train_ivector_dir/ivector
   [ ! -f $f ] && echo "$0: expected file $f to exist" && exit 1
 done
 
-if [ $stage -le 9 ]; then
+if [ $stage -le 0 ]; then
   # Get the alignments as lattices (gives the chain training more freedom).
   # use the same num-jobs as the alignments
   # it is called numerator graph.
@@ -86,7 +86,7 @@ fi
 
 
 
-if [ $stage -le 10 ]; then
+if [ $stage -le 1 ]; then
   echo "$0: creating lang directory $lang with chain-type topology"
   # Create a version of the lang/ directory that has one state per phone in the
   # topo file. [note, it really has two states.. the first one is only repeated
@@ -109,7 +109,7 @@ if [ $stage -le 10 ]; then
 fi
 
 
-if [ $stage -le 12 ]; then
+if [ $stage -le 2 ]; then
   # Build a tree using our new topology.  We know we have alignments for the
   # speed-perturbed data (local/nnet3/run_ivector_common.sh made them), so use
   # those.  The num-leaves is always somewhat less than the num-leaves from
@@ -126,7 +126,7 @@ if [ $stage -le 12 ]; then
 fi
 
 
-if [ $stage -le 13 ]; then
+if [ $stage -le 3 ]; then
   mkdir -p $dir
   echo "$0: creating neural net configs using the xconfig parser";
 
@@ -184,7 +184,7 @@ EOF
 fi
 
 
-if [ $stage -le 14 ]; then
+if [ $stage -le 4 ]; then
   if [[ $(hostname -f) == *.clsp.jhu.edu ]] && [ ! -d $dir/egs/storage ]; then
     utils/create_split_dir.pl \
      /export/fs0{1,2}/$USER/kaldi-data/egs/mini_librispeech-$(date +'%m_%d_%H_%M')/s5/$dir/egs/storage $dir/egs/storage

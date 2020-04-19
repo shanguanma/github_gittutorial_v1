@@ -384,7 +384,7 @@ if [ ${stage} -le 16 ] && [ ${stop_stage} -ge 16 ]; then
         if [ "${wave_sample}" = 8k ]; then
           log "Stage 16: using speed perturb for 8k codec train data augmentation,it is 13 dim mfcc "
            for datadir in ${train_set}; do
-             /home4/md510/package/source-md/asr_frontend/data_level/codec/perturb_data_dir_speed_3way.sh \
+             source-md/asr_frontend/data_level/codec/perturb_data_dir_speed_3way.sh \
                   $tgtdir/data$suffix/${datadir} $tgtdir/data$suffix/${datadir}_sp
              utils/fix_data_dir.sh $tgtdir/data$suffix/${datadir}_sp
 
@@ -398,7 +398,7 @@ if [ ${stage} -le 16 ] && [ ${stop_stage} -ge 16 ]; then
          elif [ "${wave_sample}" = 16k ];then
            log "Stage 16: using speed perturb for 16k codec train data augmentation, it is 13 dim mfcc "
            for datadir in ${train_set}; do
-             /home4/md510/package/source-md/asr_frontend/data_level/codec/perturb_data_dir_speed_3way.sh \
+             source-md/asr_frontend/data_level/codec/perturb_data_dir_speed_3way.sh \
                   $tgtdir/data$suffix/${datadir} $tgtdir/data$suffix/${datadir}_sp
              utils/fix_data_dir.sh $tgtdir/data$suffix/${datadir}_sp
 
@@ -673,7 +673,7 @@ if [ ${stage} -le 25 ] && [ ${stop_stage} -ge 25 ];then
  if [ "${feats_type}" = perturb ];then
   if [ "${dnn_size}" = small ];then
      log "Stage 25 train a small cnn_tdnnf chain model with sp, because train data is small, if duration of train data is less 50 hours, it is small."
-     source-md/w2020/kaldi-recipe/egs/maison2_nana/run_cnn_tdnnf_small_1a.sh \
+     source-md/w2020/kaldi-recipe/egs/malay_cts/run_cnn_tdnnf_small_1a.sh \
        --stage $chain_stage \
        --train-stage $chain_model_train_stage \
        --get-egs-stage -10 \
@@ -690,7 +690,7 @@ if [ ${stage} -le 25 ] && [ ${stop_stage} -ge 25 ];then
        --suffix $suffix 
   elif [ "${dnn_size}" = normal ];then
     log "Stage 25 train a normal cnn_tdnnf chain model with sp"
-    source-md/w2020/kaldi-recipe/egs/maison2_nana/run_cnn_tdnnf_1a.sh \
+    source-md/w2020/kaldi-recipe/egs/malay_cts/run_cnn_tdnnf_1a.sh \
       --stage $chain_stage \
       --train-stage $chain_model_train_stage \
       --get-egs-stage -10 \
@@ -712,7 +712,7 @@ if [ ${stage} -le 25 ] && [ ${stop_stage} -ge 25 ];then
  else 
   if [ "${dnn_size}" = small ];then
    log "Stage 25 train a small cnn_tdnnf chain model without sp, because train data is small, if duration of train data is less 50 hours, it is small."
-   source-md/w2020/kaldi-recipe/egs/maison2_nana/run_cnn_tdnnf_small_1a.sh \
+   source-md/w2020/kaldi-recipe/egs/malay_cts/run_cnn_tdnnf_small_1a.sh \
       --stage $chain_stage \
       --train-stage $chain_model_train_stage \
       --get-egs-stage -10 \
@@ -729,7 +729,7 @@ if [ ${stage} -le 25 ] && [ ${stop_stage} -ge 25 ];then
       --suffix $suffix 
   elif [ "${dnn_size}" = normal ];then
     log "Stage 25 train a  normal cnn_tdnnf  chain model without sp"
-    source-md/w2020/kaldi-recipe/egs/maison2_nana/run_cnn_tdnnf_1a.sh \
+    source-md/w2020/kaldi-recipe/egs/malay_cts/run_cnn_tdnnf_1a.sh \
       --stage $chain_stage \
       --train-stage $chain_model_train_stage \
       --get-egs-stage -10 \

@@ -23,7 +23,7 @@ affix=1a   # affix for the TDNN directory name
 tree_affix=
 train_stage=-10
 get_egs_stage=-10
-num_epochs=6
+num_epochs=20
 # training options
 # training chunk-options
 frames_per_eg=150,110,100
@@ -60,10 +60,10 @@ fi
 # the alignment directory names! Bad!
 gmm_dir=$exp_root/$gmm
 ali_dir=$exp_root/${gmm}_ali${sp_suffix}
-tree_dir=$exp_root/chain${affix}/tree${sp_suffix}${tree_affix:+_$tree_affix}
+tree_dir=$exp_root/chain${nnet3_affix}/tree${sp_suffix}${tree_affix:+_$tree_affix}
 lang=$tgtdir/data$suffix/lang_chain
-lat_dir=$exp_root/chain${affix}/${gmm}_${train_set}${sp_suffix}_lats
-dir=$exp_root/chain${affix}/cnn_tdnn${affix}${sp_suffix}
+lat_dir=$exp_root/chain${nnet3_affix}/${gmm}_${train_set}${sp_suffix}_lats
+dir=$exp_root/chain${nnet3_affix}/cnn_tdnn${affix}${sp_suffix}
 train_data_dir=$tgtdir/data$suffix/${train_set}${sp_suffix}_hires
 lores_train_data_dir=$tgtdir/data$suffix/${train_set}${sp_suffix}
 train_ivector_dir=$exp_root/nnet3${nnet3_affix}/ivectors_${train_set}${sp_suffix}_hires
@@ -73,7 +73,7 @@ for f in $gmm_dir/final.mdl $train_data_dir/feats.scp $train_ivector_dir/ivector
   [ ! -f $f ] && echo "$0: expected file $f to exist" && exit 1
 done
 
-if [ $stage -le 9 ];then
+if [ $stage -le 0 ];then
   # Get the alignments as lattices (gives the LT-MMI chain training more freedom).
   # use the same num-jobs as the alignments
   # it is called numerator graph.
@@ -85,7 +85,7 @@ if [ $stage -le 9 ];then
 
 fi
 
-if [ $stage -le 10 ]; then
+if [ $stage -le 1 ]; then
   echo "$0: creating lang directory $lang with chain-type topology"
   # Create a version of the lang/ directory that has one state per phone in the
   # topo file. [note, it really has two states.. the first one is only repeated
@@ -109,7 +109,7 @@ if [ $stage -le 10 ]; then
 fi
 
 
-if [ $stage -le 12 ]; then
+if [ $stage -le 2 ]; then
   # Build a tree using our new topology.  We know we have alignments for the
   # speed-perturbed data (local/nnet3/run_ivector_common.sh made them), so use
   # those.  The num-leaves is always somewhat less than the num-leaves from
@@ -125,7 +125,7 @@ if [ $stage -le 12 ]; then
     $lang $ali_dir $tree_dir
 fi
 
-if [ $stage -le 13 ]; then
+if [ $stage -le 3 ]; then
   echo "$0: creating neural net configs using the xconfig parser";
 
   num_targets=$(tree-info $tree_dir/tree |grep num-pdfs|awk '{print $2}')
@@ -180,7 +180,7 @@ EOF
   steps/nnet3/xconfig_to_configs.py --xconfig-file $dir/configs/network.xconfig --config-dir $dir/configs/
 fi
 
-if [ $stage -le 13 ]; then
+if [ $stage -le 4 ]; then
   if [[ $(hostname -f) == *.clsp.jhu.edu ]] && [ ! -d $dir/egs/storage ]; then
     utils/create_split_dir.pl \
      /export/b0{5,6,7,8}/$USER/kaldi-data/egs/swbd-$(date +'%m_%d_%H_%M')/s5c/$dir/egs/storage $dir/egs/storage
