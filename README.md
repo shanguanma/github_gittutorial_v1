@@ -3,9 +3,9 @@
 
 **Make kaldi format data for train set and test set**
 
-**This demo is coming soon**
+**This demo is coming soon!!!**
 
-# How to install KALDI
+# How to install KALDI ?
 
  *Step1:*
 
