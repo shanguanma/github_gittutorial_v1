@@ -1,4 +1,0 @@
-﻿2019-04-30 21:26:07.893 DEBUG [13877] [main@17] main() is called 
-
-2019-04-30 21:26:07.894 DEBUG [13877] [getUserInput@7] getUserInput() is called 
-
