@@ -1,9 +1,13 @@
 
 # My script is stored and updated.
 
-**Make kaldi format data for train set and test set**
+**data detail is as follows:**
+```
+   train set : kaldi_data/train_clean_100
+   test set : kaldi_data/{dev_clean  dev_other  test_clean  test_other}
+   dict:     kaldi_data/dict_nosp
+```
 
-**This demo is coming soon!!!**
 
 # How to install KALDI ?
 
