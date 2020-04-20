@@ -11,7 +11,8 @@
 
 `### download kaldi master from github`
 
-```$ git clone https://github.com/kaldi-asr/kaldi.git```
+```shell
+$ git clone https://github.com/kaldi-asr/kaldi.git```
 
 *step2:*
 
