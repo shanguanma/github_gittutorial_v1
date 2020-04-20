@@ -65,6 +65,12 @@ $ cd cudamatrix
 
 $ make test -j 10
 
+### in order to use n-gram command to build lm, you must install srilm tools.
+$ cd kaldi/tools
+
+$ cp -r srilm.tgz ./
+
+$ install_srilm.sh 
 ```
 ```
 ### A asr example:
