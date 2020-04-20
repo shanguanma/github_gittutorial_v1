@@ -7,12 +7,13 @@
 
 # How to install KALDI ?
 
+```shell
  *Step1:*
 
 `### download kaldi master from github`
 
-```shell
-$ git clone https://github.com/kaldi-asr/kaldi.git```
+
+`$ git clone https://github.com/kaldi-asr/kaldi.git`
 
 *step2:*
 
@@ -78,3 +79,4 @@ $ git clone https://github.com/kaldi-asr/kaldi.git```
 `their data is open source. you can download free.`
 
 `for example:https://github.com/kaldi-asr/kaldi/blob/master/egs/librispeech/s5/run.sh . There, stage 1 and stage2 are data download and data preparation`
+```
