@@ -41,7 +41,7 @@ $ make -j 15
 $ cd ../src
 
 ### compile kaldi code, you need to specify math libriary and cuda folder path.
-for example: use ATLAS math libriary and cuda vesion = 10
+### for example: use ATLAS math libriary and cuda vesion = 10
 
 $ ./configure  --mathlib=ATLAS --use-cuda --cudatk-dir=/cm/shared/apps/cuda10.0/toolkit/10.0.130
 
