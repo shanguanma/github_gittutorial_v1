@@ -12,7 +12,7 @@
 
 # How to install KALDI ?
 
-<details><summary>expand</summary><div>
+<details><summary>details</summary><div>
    
    
 ```shell
