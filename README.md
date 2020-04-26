@@ -12,6 +12,9 @@
 
 # How to install KALDI ?
 
+<details><summary>expand</summary><div>
+   
+   
 ```shell
  *Step1:*
 
@@ -74,6 +77,9 @@ $ cp -r srilm.tgz ./
 
 $ install_srilm.sh 
 ```
+</div></details>
+
+
 ```
 ### A asr example:
 
